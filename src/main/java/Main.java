@@ -12,8 +12,11 @@ public class Main {
 
         List<Mensch> menschen = new ArrayList<>();
         menschen.add(service.getMenschByName("Alice"));
+
+        /*
         menschen.add(service.getMenschByName("Bob"));
         menschen.add(service.getMenschByName("Cedrik"));
+         */
 
         for (Mensch mensch : menschen) {
             String json = serializer.serialize(mensch);
