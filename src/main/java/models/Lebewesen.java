@@ -10,4 +10,11 @@ public class Lebewesen {
         this.art = art;
     }
 
+    public String getArt() {
+        return art;
+    }
+
+    public void setArt(String art) {
+        this.art = art;
+    }
 }

@@ -13,7 +13,6 @@ import java.util.Map;
 
 public class MenschRepository {
 
-    private static final JsonConverter jsonConverter = new JsonConverter();
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConnection.class);
 
     public Mensch getMenschByName(String name) {
@@ -54,7 +53,7 @@ public class MenschRepository {
             }
 
             String haustiereJson = resultSet.getString("haustiere");
-            Map<String, List<String>> haustiere = jsonConverter.convertJsonToMap(haustiereJson);
+            Map<String, List<String>> haustiere = JsonConverter.convertJsonToMap(haustiereJson);
 
             return new Mensch(
                     resultSet.getInt("alter"),
