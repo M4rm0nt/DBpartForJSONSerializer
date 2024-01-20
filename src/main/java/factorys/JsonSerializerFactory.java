@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonSerializerFactory {
-    private List<SerializerStrategy> strategies;
+    private final List<SerializerStrategy> strategies;
 
     public JsonSerializerFactory() {
         strategies = new ArrayList<>();

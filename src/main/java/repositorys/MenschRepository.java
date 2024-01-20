@@ -11,12 +11,11 @@ import java.util.*;
 
 public class MenschRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConnection.class);
+    private Connection connection;
 
-    private final DatabaseConnection databaseConnection;
-
-    public MenschRepository(DatabaseConnection databaseConnection) {
-        this.databaseConnection = databaseConnection;
-    }
+        public MenschRepository(Connection connection) {
+            this.connection = connection;
+        }
 
     public Mensch getMenschByName(String name) {
         try (Connection connection = DatabaseConnection.getConnection()) {
