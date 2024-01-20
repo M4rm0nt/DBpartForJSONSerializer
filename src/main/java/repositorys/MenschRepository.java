@@ -6,10 +6,7 @@ import utils.JsonConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MenschRepository {
 
@@ -45,15 +42,8 @@ public class MenschRepository {
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            List<String> hobbies = new ArrayList<>();
-            Array hobbiesArray = resultSet.getArray("hobbies");
-            if (hobbiesArray != null) {
-                String[] hobbiesStrArray = (String[]) hobbiesArray.getArray();
-                hobbies = Arrays.asList(hobbiesStrArray);
-            }
-
-            String haustiereJson = resultSet.getString("haustiere");
-            Map<String, List<String>> haustiere = JsonConverter.convertJsonToMap(haustiereJson);
+            List<String> hobbies = getHobbies(resultSet);
+            Map<String, List<String>> haustiere = getHaustiere(resultSet);
 
             return new Mensch(
                     resultSet.getInt("alter"),
@@ -66,5 +56,22 @@ public class MenschRepository {
             );
         }
         return null;
+    }
+
+    private List<String> getHobbies(ResultSet resultSet) throws SQLException {
+        Array hobbiesArray = resultSet.getArray("hobbies");
+        if (hobbiesArray != null) {
+            String[] hobbiesStrArray = (String[]) hobbiesArray.getArray();
+            return Arrays.asList(hobbiesStrArray);
+        }
+        return new ArrayList<>();
+    }
+
+    private Map<String, List<String>> getHaustiere(ResultSet resultSet) throws SQLException {
+        String haustiereJson = resultSet.getString("haustiere");
+        if (haustiereJson != null) {
+            return JsonConverter.convertJsonToMap(haustiereJson);
+        }
+        return new HashMap<>();
     }
 }
