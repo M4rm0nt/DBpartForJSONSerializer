@@ -10,19 +10,19 @@ import java.util.Objects;
 
 public class Mensch extends Lebewesen {
     @JsonProperty
-    private int alter;
+    private final int alter;
     @JsonProperty
-    private String name;
+    private final String name;
     @JsonProperty
-    private LocalDateTime geburtstag;
+    private final LocalDateTime geburtstag;
     @JsonProperty
-    private LocalDateTime heuteTag;
+    private final LocalDateTime heuteTag;
     @JsonProperty
-    private List<String> hobbies;
+    private final List<String> hobbies;
     @JsonProperty
-    private Map<String, List<String>> haustiere;
+    private final Map<String, List<String>> haustiere;
     @JsonProperty
-    private Geschlecht geschlecht;
+    private final Geschlecht geschlecht;
 
     public Mensch(int alter, String name, LocalDateTime geburtstag, LocalDateTime heuteTag, List<String> hobbies, Map<String, List<String>> haustiere, Geschlecht geschlecht) {
         super("Homo sapiens");
@@ -32,62 +32,6 @@ public class Mensch extends Lebewesen {
         this.heuteTag = heuteTag;
         this.hobbies = hobbies;
         this.haustiere = haustiere;
-        this.geschlecht = geschlecht;
-    }
-
-    public int getAlter() {
-        return alter;
-    }
-
-    public void setAlter(int alter) {
-        this.alter = alter;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getGeburtstag() {
-        return geburtstag;
-    }
-
-    public void setGeburtstag(LocalDateTime geburtstag) {
-        this.geburtstag = geburtstag;
-    }
-
-    public LocalDateTime getHeuteTag() {
-        return heuteTag;
-    }
-
-    public void setHeuteTag(LocalDateTime heuteTag) {
-        this.heuteTag = heuteTag;
-    }
-
-    public List<String> getHobbies() {
-        return hobbies;
-    }
-
-    public void setHobbies(List<String> hobbies) {
-        this.hobbies = hobbies;
-    }
-
-    public Map<String, List<String>> getHaustiere() {
-        return haustiere;
-    }
-
-    public void setHaustiere(Map<String, List<String>> haustiere) {
-        this.haustiere = haustiere;
-    }
-
-    public Geschlecht getGeschlecht() {
-        return geschlecht;
-    }
-
-    public void setGeschlecht(Geschlecht geschlecht) {
         this.geschlecht = geschlecht;
     }
 
