@@ -2,31 +2,38 @@ package utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static utils.Util.*;
 
 public class JsonConverter {
 
     public static Map<String, List<String>> convertJsonToMap(String jsonString) {
-        Map<String, List<String>> haustiereMap = new HashMap<>();
-
-        if (jsonString != null && !jsonString.isEmpty()) {
-            JSONArray jsonArray = new JSONArray(jsonString);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String kategorie = jsonObject.getString("kategorie");
-                JSONArray namenArray = jsonObject.getJSONArray("namen");
-
-                List<String> namenListe = new ArrayList<>();
-                for (int j = 0; j < namenArray.length(); j++) {
-                    namenListe.add(namenArray.getString(j));
-                }
-
-                haustiereMap.put(kategorie, namenListe);
-            }
+        if (jsonString == null || jsonString.isEmpty()) {
+            return Collections.emptyMap();
         }
 
-        return haustiereMap;
+        JSONArray jsonArray = new JSONArray(jsonString);
+
+        return IntStream.range(0, jsonArray.length())
+                .mapToObj(jsonArray::getJSONObject)
+                .filter(jsonObject -> jsonObject.has(kategorie) && jsonObject.has(namen))
+                .collect(Collectors.toMap(
+                        jsonObject -> jsonObject.optString(kategorie, devaultVale),
+                        jsonObject -> toList(jsonObject.optJSONArray(namen))
+                ));
     }
 
+    private static List<String> toList(JSONArray jsonArray) {
+        if (jsonArray == null) {
+            return Collections.emptyList();
+        }
+        return IntStream.range(0, jsonArray.length())
+                .mapToObj(index -> jsonArray.optString(index, null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 }

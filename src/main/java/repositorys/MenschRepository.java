@@ -1,5 +1,6 @@
 package repositorys;
 
+import exceptions.RepositoryException;
 import models.Mensch;
 import enums.Geschlecht;
 import utils.JsonConverter;
@@ -9,15 +10,20 @@ import java.sql.*;
 import java.util.*;
 
 public class MenschRepository {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConnection.class);
+
+    private final DatabaseConnection databaseConnection;
+
+    public MenschRepository(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
 
     public Mensch getMenschByName(String name) {
         try (Connection connection = DatabaseConnection.getConnection()) {
             return getMenschByNameInternal(connection, name);
         } catch (SQLException e) {
             LOGGER.error("Verbindung fehlgeschlagen! {}", e.getMessage());
-            return null;
+            throw new RepositoryException("Fehler beim Abrufen des Menschen mit dem Namen " + name, e);
         }
     }
 

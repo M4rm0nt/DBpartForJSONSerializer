@@ -5,7 +5,11 @@ import repositorys.MenschRepository;
 import exceptions.ServiceException;
 
 public class MenschService {
-    private final MenschRepository repository = new MenschRepository();
+    private final MenschRepository repository;
+
+    public MenschService(MenschRepository repository) {
+        this.repository = repository;
+    }
 
     public Mensch getMenschByName(String name) {
         Mensch mensch = repository.getMenschByName(name);

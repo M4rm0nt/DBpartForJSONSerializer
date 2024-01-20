@@ -8,6 +8,8 @@ import configs.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static utils.Util.Fehlermeldung;
+
 public class DatabaseConnection {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConnection.class);
 
@@ -17,7 +19,7 @@ public class DatabaseConnection {
         try {
             return DriverManager.getConnection(CONFIG.getDbUrl(), CONFIG.getDbUser(), CONFIG.getDbPassword());
         } catch (SQLException e) {
-            LOGGER.error("Verbindung fehlgeschlagen! {}", e.getMessage());
+            LOGGER.error(Fehlermeldung, e.getMessage());
             return null;
         }
     }

@@ -1,14 +1,16 @@
 import models.Mensch;
+import repositorys.DatabaseConnection;
+import repositorys.MenschRepository;
 import serializers.JsonSerializer;
 import services.MenschService;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-
-        MenschService service = new MenschService();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        MenschRepository menschRepository = new MenschRepository(databaseConnection);
+        MenschService service = new MenschService(menschRepository);
         JsonSerializer serializer = new JsonSerializer();
 
         /*
